@@ -67,7 +67,7 @@
                   <hr />
                   {{ form.hidden_tag() }}
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" class="btn btn-info btn-lg">Registrarse</button>
+                    <button id="Registrarse" type="submit" class="btn btn-info btn-lg">Registrarse</button>
                   </div>
 
                 </form>
@@ -75,7 +75,7 @@
               </div>
               <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                <img src="{{url_for('static', filename='/img/lectoria_logo (2).png')}}"
+                <img src="{{url_for('static', filename='/img/lectoriaLogo.png')}}"
                   class="img-fluid" alt="Sample image">
               </div>
             </div>
@@ -85,6 +85,13 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelector("#Registrarse").addEventListener("click", function (e) {
+      var btn = document.querySelector("#Registrarse");
+      btn.classList.add('disabled-button');
+  });
+</script>
 
 
 

@@ -7,10 +7,10 @@ from helpers import email_exists
 class register_user(FlaskForm):
     name = StringField("Nombres", validators=[
         DataRequired(message="El campo debe ser rellenado"), 
-        Length(max=10, min=3, message="El campo debe de tener entre 3 y 10 carácteres")
+        Length(max=25, min=3, message="El campo debe de tener entre 3 y 10 carácteres")
         ])
     lastname = StringField("Apellidos", validators=[
-        DataRequired(), Length(max=10, min=3)
+        DataRequired(), Length(max=25, min=3)
     ])
     email = EmailField("Correo eléctronico", validators=[
         DataRequired(),
