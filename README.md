@@ -2,8 +2,8 @@
 
 Lectoria es una aplicación web desarrollada como parte del curso Web50. Esta plataforma permite a los usuarios buscar libros, visualizar datos relevantes como el título, autor, fecha de publicación e imágenes de la portada, además de poder realizar reseñas.
 
-## **IMPORTANTE**
-Ya que la base de datos está alojada en Render, tiende a fallar mucho en las consultas. Si la página se queda estancada por más de 15 segundos, por favor recargue manualmente y se solucionará. 
+## **¿Quieres probar la aplicación?**
+El sitio web está alojado en Render: https://project-1-books.onrender.com
 
 ## Tecnologías Utilizadas
 - **Backend**: Python, Flask
@@ -54,11 +54,12 @@ Lista todas las dependencias necesarias para que la aplicación funcione correct
 
 1. Clonar el repositorio: `git clone https://github.com/usuario/project1.git`
 2. Configurar las variables de entorno copiando el archivo `.env.template` a un nuevo archivo llamado `.env` y llenando las claves correspondientes.
-3. Ejecutar el script `database.txt` para configurar la base de datos en POSTGRESQL
-4. Realizar un entorno virtual: `python -m venv venv`
-5. Luego activarlo con: `venv/scripts/activate`
-6. Instalar las dependencias con: `pip install -r requirements.txt`
-7. Ejecutar la aplicación: `flask run`
+3. Ejecutar el script en un gestor de base de datos Postgressql el Query se encuentra en: `database.txt`
+4. Para configurar la conexión debe de ir al archivo `db.py`
+5. Realizar un entorno virtual: `python -m venv venv`
+6. Luego activarlo con: `venv/scripts/activate`
+7. Instalar las dependencias con: `pip install -r requirements.txt`
+8. Ejecutar la aplicación: `flask run`
 
 ## Autor
 Jhonatan Jazmil Medina Aguirre
