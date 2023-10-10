@@ -1,0 +1,43 @@
+CREATE TABLE users(
+  
+ 	user_id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  lastname VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  password varchar(128) NOT NULL
+  );
+ 
+
+CREATE TABLE authors(
+author_id SERIAL PRIMARY KEY,
+name VARCHAR(100)
+);
+
+CREATE TABLE book(
+book_id SERIAL PRIMARY KEY,
+ISBN VARCHAR(20) UNIQUE,
+title VARCHAR(255),
+year INTEGER
+);
+
+CREATE TABLE authors_books(
+author_id INTEGER NOT NULL,
+book_id INTEGER NOT NULL,
+FOREIGN KEY (author_id) REFERENCES authors(author_id),
+FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+
+
+CREATE TABLE reviews(
+review_id SERIAL PRIMARY KEY,
+user_id INTEGER,
+book_id INTEGER,
+score_review INTEGER CHECK (score_review BETWEEN 1 AND 5),
+book_review TEXT,
+review_date TIMESTAMP,
+FOREIGN KEY (user_id) REFERENCES users(user_id),
+FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+
+
+
