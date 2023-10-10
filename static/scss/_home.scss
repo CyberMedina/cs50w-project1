@@ -1,0 +1,168 @@
+$p: rgba(185, 240, 250, 0.8);
+$hover: mix($second-color, $primary-color, 80%);
+
+
+$color: #39bda7;
+$border-color: #4f4f4f;
+$font-size: 19px;
+$padding: 12px 24px;
+$border-radius: 4px;
+$transition: all 0.2s ease-in;
+$z-index: 1;
+
+span{
+  color: $second-color;
+}
+
+.button {
+  display: inline-block;
+  padding: $padding;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  transition: $transition;
+  position: relative;
+  overflow: hidden;
+  font-size: $font-size;
+  color: black;
+  z-index: $z-index;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+  }
+
+  &:before {
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+
+  &:after {
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    background-color: $color;
+  }
+
+
+  &:hover {
+    color: #ffffff;
+    border-color: $color;
+  }
+
+
+  &:hover:before,
+  &:hover:after {
+    top: -35%;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+  }
+
+  &:hover:before {
+    background-color: $color;
+  }
+
+  &:hover:after {
+    top: -45%;
+  }
+
+}
+
+$color: #8e8e8e;
+$color-hover: #fff;
+$max-width: 960px;
+$bg-color: rgba(0, 0, 0, .85);
+$border-radius: 21px;
+$transition: color .15s ease-in-out;
+
+.container {
+  max-width: $max-width;
+}
+
+
+.icon-link>.bi {
+  width: .75em;
+  height: .75em;
+}
+
+
+.site-header {
+  background-color: $bg-color;
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+
+  a {
+    color: $color;
+    transition: $transition;
+  }
+
+
+  &:hover {
+    color: $color-hover;
+    text-decoration: none;
+  }
+
+}
+
+
+.product-device,
+.product-device-2 {
+  position: absolute;
+  width: 300px;
+  height: 540px;
+  border-radius: $border-radius;
+}
+
+
+.product-device {
+  right: 10%;
+  bottom: -30%;
+  background-color: #333;
+  transform: rotate(30deg);
+
+
+
+  &::before {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    bottom: 10%;
+    left: 10px;
+    content: "";
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 5px;
+  }
+}
+
+
+.product-device-2 {
+  top: -25%;
+  right: auto;
+  bottom: 0;
+  left: 5%;
+  background-color: #e5e5e5;
+}
+
+
+.flex-equal>* {
+  flex: 1;
+}
+
+
+@media (min-width: 768px) {
+  .flex-md-equal>* {
+    flex: 1;
+  }
+
+}
+
+.bd-mode-toggle {
+  z-index: 1500;
+}
+

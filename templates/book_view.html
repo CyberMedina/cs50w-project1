@@ -1,0 +1,133 @@
+{% extends './layaout.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block customcss %}{% endblock %}
+
+{% block body %}
+
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-7 pt-5 mb-5 align-self-center">
+                <div class="promo pe-md-3 pe-lg-5">
+                    <h1 class="headline mb-3">
+                        {{ book_data.title }}
+                    </h1><!--//headline-->
+                    <div class="subheadline mb-4">
+                        <p><a style="text-decoration: dashed;"  href="/book_view_json/{{ book_data.isbn }}" target="_blank"><span>ISBN:</span> {{ book_data.isbn }}</a></p>
+                    </div><!--//subheading-->
+                    <p><span>Autor:</span> {{ book_data.author }}</p>
+                    <p><span>Año:</span> {{ book_data.year }}</p>
+                </div><!--//promo-->
+            </div><!--col-->
+            <div class="col-12 col-md-5 mb-5 align-self-center">
+                <div class="book-cover-holder mt-5">
+                    <img class="img-fluid book-cover" src="{{ coverImg }}" height="100px"
+                        width="200px" alt="book cover">
+                </div><!--//book-cover-holder-->
+            </div><!--col-->
+        </div><!--//row-->
+    </div><!--//container-->
+</section><!--//hero-section-->
+
+<section id="reviews-section" class="reviews-section py-5">
+    <div class="container">
+        <h2 class="section-heading text-center">Reseñas</h2>
+        <div class="section-intro text-center single-col-max mx-auto mb-5"><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+            Escribir reseña
+        </button></div>
+        <div class="row justify-content-center">
+            {% if reviews_data %}
+            {% for review in reviews_data %}
+            <div class="item col-12 col-lg-4 p-3 mb-4">
+                <div class="item-inner theme-bg-light rounded p-4">
+
+                    <blockquote class="quote">
+                        {{ review.name }} {{ review.lastname }}
+                    </blockquote><!--//item-->
+                    <div class="source row gx-md-3 gy-3 gy-md-0">
+                        <div class="col-12 col-md-auto text-center text-md-start">
+                            <i class="fa-solid fa-user"></i>
+                        </div><!--//col-->
+                        <div class="col source-info text-center text-md-start">
+                            <div class="source-name">{{ review.book_review }}</div>
+                            <div class="rating" name="rating-recieve">
+                                <input value="5" name="rating-recieve" id="star5recieve" type="radio">
+                                <label for="star5recieve" class="{{ 'star-active' if review.score_review >= 5 }}"></label>
+                                <input value="4" name="rating-recieve" id="star4recieve" type="radio">
+                                <label for="star4recieve" class="{{ 'star-active' if review.score_review >= 4 }}"></label>
+                                <input value="3" name="rating-recieve" id="star3recieve" type="radio">
+                                <label for="star3recieve" class="{{ 'star-active' if review.score_review >= 3 }}"></label>
+                                <input value="2" name="rating-recieve" id="star2recieve" type="radio">
+                                <label for="star2recieve" class="{{ 'star-active' if review.score_review >= 2 }}"></label>
+                                <input value="1" name="rating-recieve" id="star1recieve" type="radio">
+                                <label for="star1recieve" class="{{ 'star-active' if review.score_review >= 1 }}"></label>
+                            </div>                            
+                        </div><!--//col-->
+                    </div><!--//source-->
+                    <p>{{ review.time_ago }}</p>
+                </div><!--//inner-->
+            </div><!--//item-->
+            {% endfor %}
+            {% else %}
+            <h2>Todavía no hay comentarios...</h2>
+            {% endif %}
+
+        </div><!--//row-->
+    </div><!--//container-->
+</section><!--//reviews-section-->
+
+
+
+<!-- Vertically centered modal -->
+<form class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true" method="POST" action="/book_view/{{ book_data.book_id }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalCenterTitle">{{ book_data.title }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="rating" name="rating">
+                    <input value="5" name="rating" id="star5" type="radio" required>
+                    <label for="star5"></label>
+                    <input value="4" name="rating" id="star4" type="radio">
+                    <label for="star4"></label>
+                    <input value="3" name="rating" id="star3" type="radio">
+                    <label for="star3"></label>
+                    <input value="2" name="rating" id="star2" type="radio">
+                    <label for="star2"></label>
+                    <input value="1" name="rating" id="star1" type="radio">
+                    <label for="star1"></label>
+                </div>
+                <div class="text-area-review">
+                    <textarea name="text-area-review" class="form-control" id="" rows="10" placeholder="Escribe tú hermoso comentario aquí!" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="POST" id="sendReview" class="btn btn-info">Enviar reseña</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.querySelector("#sendReview").addEventListener("click", function (e) {
+
+        // Se chequea si los inputs del login son validos o no, mediante el uso de checkValidity
+  
+        var formLogin = document.getElementById('exampleModalCenter');
+  
+        if (!formLogin.checkValidity()) {
+          formLogin.reportValidity();
+          return
+        }
+  
+        var btn = document.querySelector("#sendReview");
+        btn.classList.add('disabled-button');
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <!-- CDN Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='scss/main.css') }}">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'>
+
+  <!-- CSS base -->
+
+  <!-- Custom CSS -->
+  {% block customCSS %}{% endblock %}
+</head>
+
+<body>
+  <!-- Start loader -->
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+
+
+
+  <!-- End loader -->
+
+  <!-- Start Toogle dark/light button -->
+  <label class="switch position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+    <input type="checkbox" class="chk" id="themeToggle">
+    <span class="slider"></span>
+  </label>
+  <script>
+
+    var LoginModal
+
+    function abrirLogin(id) {
+      LoginModal = new bootstrap.Modal(document.getElementById(id), {
+        keyboard: false
+      })
+
+      // Qué carajos estoy haciendo aquí? PUES agarro el URL y la limpio para no estar creando nada en mi localStorage
+      var url = window.location.toString();
+      if (url.indexOf("?registerSuccess=1") > 0) {
+        var clean_url = url.substring(0, url.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_url);
+      }
+
+
+      LoginModal.show();
+    }
+
+    document.getElementById('themeToggle').addEventListener('change', function () {
+      if (this.checked) {
+        // Cambiar a modo oscuro
+        document.body.classList.add('dark-mode');
+      } else {
+        // Cambiar a modo claro
+        document.body.classList.remove('dark-mode');
+      }
+    });
+
+  </script>
+
+
+
+
+
+  <!-- End toogle dark/light button -->
+
+  <!-- Start navbar -->
+  {% block navbar %}
+  <nav class="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand d-md-none" href="">
+        <svg class="bi" width="24" height="24">
+          <use xlink:href="#aperture" />
+        </svg>
+        Lectoria
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav flex-grow-1 justify-content-between">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">
+              <svg class="bi" width="24" height="24">
+                <use xlink:href="#aperture" />
+              </svg>
+            </a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('search') }}">Libros</a></li>
+          <li style="pointer-events: none;opacity: 0.6;" class="nav-item" value="disable"><a class="nav-link" href="#">Reseñas</a></li>
+          <li style="pointer-events: none;opacity: 0.6;" class="nav-item"><a class="nav-link" href="#">Contactanos</a></li>
+          <li style="pointer-events: none;opacity: 0.6;" class="nav-item"><a class="nav-link" href="#">Soporte</a></li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <a class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ url_for('static', filename='img/user.png') }}" alt="">
+              </a>
+              <ul class="dropdown-menu">
+
+
+                {% if g.user_id %}
+                <li><a class="dropdown-item" href="#">{{ g.name }} {{ g.lastname }}</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('Cerrar_Sesion') }}">Cerrar Sesión</a></li>
+                {% else %}
+                <li><a class="dropdown-item" onclick="abrirLogin('loginModal')">Iniciar
+                    Sesión</a>
+                </li>
+                <li><a class="dropdown-item" href="{{ url_for('register') }}">Registrarse</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+
+
+  <!-- End navbar -->
+
+  {% block body %}
+  {% endblock %}
+
+
+  {% block footer %}
+  <!-- Start footer -->
+  <footer class="container py-5">
+    <div class="row">
+      <div class="col-12 col-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img"
+          viewBox="0 0 24 24">
+          <title>Product</title>
+          <circle cx="12" cy="12" r="10" />
+          <path
+            d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94" />
+        </svg>
+        <small class="d-block mb-3 text-body-secondary">&copy; Medina COPYRIGHT LOLOLOL 2023</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Dirección</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="link-secondary text-decoration-none" href="#">Semaforos del chilamate 3 cuadras arriba</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Contacto</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="link-secondary text-decoration-none" href="#">+505 22684698</a></li>
+        </ul>
+      </div>
+  </footer>
+  {% endblock %}
+
+
+  <!-- End footer -->
+
+  <!-- Start login modal -->
+  <div class="modal modal-sm" tabindex="-1" id="loginModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="form-container">
+          <p class="title">Inicio de sesión</p>
+          <form class="form" id="form-login" method="POST" action="/login_user">
+            <div class="input-group">
+              <label for="username">Correo Eléctronico</label>
+              <input type="email" name="email" id="email" placeholder="" required>
+            </div>
+            <div class="input-group">
+              <label for="password">Contraseña</label>
+              <input type="password" name="password" id="password" placeholder="" required>
+            </div>
+            <button id="login-button" class="sign mt-4">Iniciar sesión</button>
+          </form>
+          <p class="signup mt-3">¿No tienes una cuenta?
+            <a rel="noopener noreferrer" href="{{ url_for('register') }}" class="">Registrate</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End modal login -->
+
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="loginRequiredToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Error</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Debes de iniciar sesión primero!
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="toastStatus" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto" id="titleToast"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body" id="bodyToast"></div>
+    </div>
+  </div>
+
+
+  <!-- JS custom -->
+  <script src="{{ url_for('static', filename= 'js/main.js') }}"></script>
+  <!-- JS with jinja2 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      {% if reviewSucess == '1' %}
+
+      {% endif %}
+      {% if registerSuccess == '1' %}
+
+      var url = window.location.toString();
+      if (url.indexOf("?registerSuccess=1") || url.indexOf("?reviewSucess=1") > 0) {
+        var clean_url = url.substring(0, url.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_url);
+      }
+
+      console.log('muestrame el TOAAAST')
+      var toast = new bootstrap.Toast(document.getElementById('toastStatus'))
+      // Selecciono el id de los componentes de mi toastStatus
+      var titleToast = document.getElementById('titleToast');
+      var bodyToast = document.getElementById('bodyToast');
+
+      // Insertamos el texto a los componentes de mi toast
+      titleToast.innerText = "Has sido registrado con éxito"
+      bodyToast.innerText = "Ahora inicia sesión!"
+
+
+      toast.show();
+
+
+      {% elif registerSuccess == '0' %}
+
+      var url = window.location.toString();
+      if (url.indexOf("?registerSuccess=1") || url.indexOf("?reviewSucess=1") > 0) {
+        var clean_url = url.substring(0, url.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_url);
+      }
+
+
+      // Selecciono el id de los componentes de mi toastStatus
+      var titleToast = document.getElementById('titleToast');
+      var bodyToast = document.getElementById('bodyToast');
+
+      //Selecciono el id del toast y el id para todo el formulario del login
+      var toast = new bootstrap.Toast(document.getElementById('toastStatus'));
+
+      // Insertamos el texto a los componentes de mi toast
+      titleToast.innerText = "Error"
+      bodyToast.innerText = "Debes de iniciar sesión primero!"
+
+
+      abrirLogin('loginModal');
+      toast.show();
+
+
+      {% endif %}
+
+      {% if reviewSucess == '1' %}
+
+      var url = window.location.toString();
+      if (url.indexOf("?registerSuccess=1") || url.indexOf("?reviewSucess=1") > 0) {
+        var clean_url = url.substring(0, url.indexOf("?"));
+        window.history.replaceState({}, document.title, clean_url);
+      }
+
+      console.log('muestrame el TOAAAST')
+      var toast = new bootstrap.Toast(document.getElementById('toastStatus'))
+      // Selecciono el id de los componentes de mi toastStatus
+      var titleToast = document.getElementById('titleToast');
+      var bodyToast = document.getElementById('bodyToast');
+
+      // Insertamos el texto a los componentes de mi toast
+      titleToast.innerText = "{{ g.name }} {{ g.lastname }}"
+      bodyToast.innerText = "Tú comentario ha sido publicado!"
+
+
+      toast.show();
+
+      localStorage.removeItem('reviewsucess') // Ya que se imprimió debemos de eliminarlo, para que no siga apareciendo cada vez que se recargue la pantalla
+
+      {% endif %}
+    })
+  </script>
+
+  <!-- JS Boostrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/darkmode-toogle.js') }}"></script>
+
+  <!-- Custom JS -->
+  {% block customJS %}{% endblock customJS %}
+
+
+
+</body>
+
+</html>

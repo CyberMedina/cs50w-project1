@@ -1,0 +1,81 @@
+{% extends './layaout.html' %}
+
+
+{% block title %}Home{% endblock %}
+
+{% block customCSS %}
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css'>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='scss/main.css') }}">
+
+
+
+{% endblock %}
+
+{% block body %}
+<!-- Start header search books section -->
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+  <div class="col-md-6 p-lg-5 mx-auto my-5">
+    <h1 class="display-3 fw-bold">¡Bienvenido a <span>Lectoria!</span></h1>
+    <h3 class="fw-normal text-muted mb-3">Tú biblioteca de reseñas digital</h3>
+    <div class="d-flex gap-3 justify-content-center lead fw-normal">
+      <button class="button" id="buscar_libros"> Buscar libros</button>
+    </div>
+  </div>
+  <div class="product-device shadow-sm d-none d-md-block"></div>
+  <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+<!-- End header search books section -->
+
+<!-- Start carousel  -->
+<section class="custom-carousel">
+  <div class="content">
+    <h2>En lectoría podrás <span>leer y publicar reseñas</span></h2>
+    <p> Estamos conectados mediante la base de datos de libros de Google, por lo qué podrás encontrar la gran mayoría de
+      libros.</p>
+    <ul class="counter">
+      <li>
+        <h3><i class="fa-solid fa-book"></i>{{ totalUsersAndBooks.total_books }}</h3>
+        <span>Libros totales</span>
+      </li>
+      <li>
+        <h3><i class="fa-solid fa-user"></i>{{ totalUsersAndBooks.total_users }}</h3>
+        <span>Clientes</span>
+      </li>
+    </ul>
+    <a class="btn" href="{{ url_for('search') }}">Ir a los libros <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+
+  <div class="swiper-container">
+    <div class="title text-center">
+      <h2>Libros más <span>comentados</span></h2>
+    </div>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for dtBook in mostCommentBooks %}
+        <div class="swiper-slide swiper-slide--two" style="background: linear-gradient(to bottom, #2c536400, #203a4303, #0f2027cc), url('{{ dtBook.thumbnail_url }}') no-repeat 50% 50%/cover;">
+          <a href="/book_view/{{ dtBook.book_id }}" class="swiper-slide-link"></a>
+          <span>{{ dtBook.review_count }} Comentarios</span>
+          <div class="slide-content">
+            <h5>{{ dtBook.title }}</h5>
+            <a class="btn" href="/book_view/{{ dtBook.book_id }}">Ver libro</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="swiper-pagination"></div>
+  </div>
+  <div class="circle"></div>
+</section>
+
+
+
+<!-- Custom JS -->
+{% block customJS %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js'></script>
+<script src="{{ url_for('static', filename='js/custom.carousel.js') }}"></script>
+{% endblock customJS %}
+
+{% endblock %}

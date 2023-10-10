@@ -1,0 +1,105 @@
+{% extends './layaout.html' %}
+
+{% block title %}Register{% endblock %}
+
+
+
+{% block body %}
+
+<section class="special-register">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Regis<span style="color:#39bda7">trate</span></p>
+
+                <form action="" class="mx-1 mx-md-4" method="POST">
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <div class="input-group-register form-outline flex-fill mb-0">
+                      {{ form.name.label }} 
+                      {{ form.name(class_="form-control") }} 
+
+                      {% for error in form.name.errors %}
+                      <span style="color: red">{{ error }}</span> 
+                      {% endfor %}
+
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <div class="input-group-register form-outline flex-fill mb-0">
+                      {{ form.lastname.label }} 
+                      {{ form.lastname(class_="form-control") }} 
+
+                      {% for error in form.lastname.errors %}
+                      <span style="color: red">{{ error }}</span> 
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <div class="input-group-register form-outline flex-fill mb-0">
+                      {{ form.email.label }} 
+                      {{ form.email(style=("border-color: red !important;" if form.email.errors else ""), class_="form-control") }}
+
+
+                      {% for error in form.email.errors %}
+                      <span style="color: red">{{ error }}</span> 
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <div class="input-group-register form-outline flex-fill mb-0">
+                      {{ form.password.label }} 
+                      {{ form.password(class_="form-control") }} 
+
+                      {% for error in form.password.errors %}
+                      <span style="color: red">{{ error }}</span> 
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <hr />
+                  {{ form.hidden_tag() }}
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-info btn-lg">Registrarse</button>
+                  </div>
+
+                </form>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="{{url_for('static', filename='/img/lectoria_logo (2).png')}}"
+                  class="img-fluid" alt="Sample image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+
+
+
