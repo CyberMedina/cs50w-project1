@@ -8,5 +8,9 @@ load_dotenv()
 
 
 # Set up database
-engine= create_engine(os.getenv("DATABASE_URL"), pool_size=20, max_overflow=30)
+engine= create_engine(os.getenv("DATABASE_URL"),  pool_size=10,
+                                      max_overflow=2,
+                                      pool_recycle=300,
+                                      pool_pre_ping=True,
+                                      pool_use_lifo=True)
 db = scoped_session(sessionmaker(bind=engine))
